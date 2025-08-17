@@ -1,0 +1,39 @@
+name: Android APK Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 3. Build Docker image (just environment, no source code)
+      - name: Build Android Build Image
+        run: |
+          docker build -t android-builder - <<EOF
+          FROM mobiledevops/android-sdk-image:34.0.0
+          WORKDIR /app
+          EOF
+
+      # 4. Run Gradle build inside container
+      - name: Build unsigned APK
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/app \
+            -w /app \
+            android-builder ./gradlew --no-daemon --offline assembleRelease
+
+      # Upload APK artifact
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: '**/build/outputs/apk/release/*.apk'
