@@ -23,13 +23,13 @@ jobs:
           WORKDIR /app
           EOF
 
-      # 4. Run Gradle build inside container
       - name: Build unsigned APK
         run: |
           docker run --rm \
+            -u $(id -u):$(id -g) \
             -v ${{ github.workspace }}:/app \
             -w /app \
-            android-builder ./gradlew assembleRelease
+            android-builder ./gradlew --no-daemon --offline assembleRelease
 
       # Upload APK artifact
       - name: Upload APK
