@@ -27,6 +27,7 @@ jobs:
         run: |
           docker run --rm \
             -u $(id -u):$(id -g) \
+            -e GRADLE_USER_HOME=/app/.gradle \
             -v ${{ github.workspace }}:/app \
             -w /app \
             android-builder ./gradlew --no-daemon --offline assembleRelease
