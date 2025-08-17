@@ -30,7 +30,7 @@ jobs:
             -e GRADLE_USER_HOME=/app/.gradle \
             -v ${{ github.workspace }}:/app \
             -w /app \
-            android-builder ./gradlew --no-daemon --offline assembleRelease
+            android-builder ./gradlew assembleRelease
 
       # Upload APK artifact
       - name: Upload APK
