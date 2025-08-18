@@ -38,7 +38,11 @@ jobs:
             -v $HOME/.gradle:/root/.gradle \
             -v ${{ github.workspace }}:/app \
             -w /app \
-            android-builder ./gradlew assembleRelease    
+            android-builder ./gradlew assembleRelease 
+
+       # fix permission issue
+       - name: Fix Gradle cache permissions
+         run: sudo chown -R $USER:$USER ~/.gradle    
 
       # Upload APK artifact
       - name: Upload APK
