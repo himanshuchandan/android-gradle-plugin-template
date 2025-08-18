@@ -31,8 +31,8 @@ RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O gradle.
     && rm gradle.zip
 
 WORKDIR /app
-COPY . .
+#COPY . .
 
-RUN chmod +x ./gradlew
+#RUN chmod +x ./gradlew
 
-CMD ["./gradlew", "--offline", "assembleRelease"]
+#CMD ["./gradlew", "assembleRelease"]
