@@ -41,8 +41,9 @@ jobs:
             android-builder ./gradlew assembleRelease 
 
        # fix permission issue
-       - name: Fix Gradle cache permissions
-         run: sudo chown -R $USER:$USER ~/.gradle    
+      - name: Fix Gradle cache permissions
+        run: |
+          sudo chown -R $USER:$USER ~/.gradle    
 
       # Upload APK artifact
       - name: Upload APK
