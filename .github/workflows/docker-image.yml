@@ -35,7 +35,7 @@ jobs:
       - name: Build APK
         run: |
           docker run --rm \
-            -v $HOME/.gradle:/root/.gradle \   # persist gradle wrapper + deps
+            -v $HOME/.gradle:/root/.gradle \
             -v ${{ github.workspace }}:/app \
             -w /app \
             android-builder ./gradlew assembleRelease    
