@@ -22,8 +22,8 @@ RUN yes | sdkmanager --licenses
 
 RUN sdkmanager --install \
     "platform-tools" \
-    "platforms;android-33" \
-    "build-tools;33.0.0"
+    "platforms;android-35" \
+    "build-tools;35.0.0"
 
 RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O gradle.zip \
     && unzip gradle.zip -d /opt \
