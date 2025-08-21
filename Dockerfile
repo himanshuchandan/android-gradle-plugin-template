@@ -25,10 +25,15 @@ RUN sdkmanager --install \
     "platforms;android-35" \
     "build-tools;35.0.0"
 
-RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O gradle.zip \
+RUN wget https://services.gradle.org/distributions/gradle-8.14.3-bin.zip -O gradle.zip \
     && unzip gradle.zip -d /opt \
-    && mv /opt/gradle-8.6 $GRADLE_HOME \
+    && mv /opt/gradle-8.14.3 $GRADLE_HOME \
     && rm gradle.zip
+
+#RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O gradle.zip \
+#    && unzip gradle.zip -d /opt \
+#    && mv /opt/gradle-8.6 $GRADLE_HOME \
+#    && rm gradle.zip
 
 WORKDIR /app
 #COPY . .
