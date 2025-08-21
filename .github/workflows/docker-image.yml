@@ -21,15 +21,15 @@ jobs:
           docker build -t android-builder .
 
       # build cache     
-      - name: Cache Gradle
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-    
+      #- name: Cache Gradle
+      #  uses: actions/cache@v3
+      #  with:
+      #    path: |
+      #      ~/.gradle/caches
+      #      ~/.gradle/wrapper
+      #    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+      #    restore-keys: |
+      #      ${{ runner.os }}-gradle-    
           
       # Run Gradle build inside container
       - name: Build APK
@@ -38,12 +38,12 @@ jobs:
             -v $HOME/.gradle:/root/.gradle \
             -v ${{ github.workspace }}:/app \
             -w /app \
-            android-builder ./gradlew assembleRelease 
+            android-builder gradle assembleRelease 
 
-       # fix permission issue
-      - name: Fix Gradle cache permissions
-        run: |
-          sudo chown -R $USER:$USER ~/.gradle    
+      # fix permission issue
+      #- name: Fix Gradle cache permissions
+      #  run: |
+      #    sudo chown -R $USER:$USER ~/.gradle    
 
       # Upload APK artifact
       - name: Upload APK
