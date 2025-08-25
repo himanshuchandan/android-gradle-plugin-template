@@ -38,7 +38,7 @@ RUN wget https://services.gradle.org/distributions/gradle-8.14.3-bin.zip -O grad
     && rm gradle.zip
 
 # Verify signing tools are available
-RUN which apksigner && which zipalign && which jarsigner
+RUN command -v apksigner && command -v zipalign && command -v jarsigner
 
 WORKDIR /app
 #COPY . .
