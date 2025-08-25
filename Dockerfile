@@ -6,7 +6,7 @@ FROM registry.redhat.io/ubi9/openjdk-21:1.23-6.1755674728
 # Install required packages (yum/dnf instead of apt)
 USER root
 RUN microdnf install -y \
-    wget unzip git curl bash ca-certificates \
+    wget unzip git bash ca-certificates \
     && microdnf clean all
 
 # Environment variables
