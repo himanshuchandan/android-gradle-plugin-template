@@ -18,6 +18,7 @@ RUN mkdir -p $ANDROID_HOME/cmdline-tools \
     && curl -k -L -o tools.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip \
     && jar xf tools.zip \
     && mv cmdline-tools latest \
+    && chmod +x $ANDROID_HOME/cmdline-tools/latest/bin/* \
     && rm tools.zip
 
 # Accept licenses
