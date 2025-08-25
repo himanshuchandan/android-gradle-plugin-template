@@ -38,3 +38,30 @@ jobs:
         with:
           name: android-apk
           path: '**/build/outputs/apk/release/*.apk'
+
+      # Sign APK step, if not signing apk in the gradle build itself
+      #- name: Sign APK
+      #  run: |
+      #    # Find unsigned APK
+      #    APK=$(find . -name "*-release-unsigned.apk" | head -n 1)
+
+      #    # Align APK
+      #    zipalign -v -p 4 "$APK" app-release-aligned.apk
+
+      #    # Sign APK
+      #    apksigner sign \
+      #      --ks my-release-key.jks \
+      #      --ks-key-alias ${{ secrets.KEY_ALIAS }} \
+      #      --ks-pass pass:${{ secrets.KEYSTORE_PASSWORD }} \
+      #      --key-pass pass:${{ secrets.KEY_PASSWORD }} \
+      #      --out app-release-signed.apk app-release-aligned.apk
+
+      #    # Verify
+      #    apksigner verify app-release-signed.apk
+
+      # Upload signed APK
+      #- name: Upload Signed APK
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: signed-android-apk
+      #    path: app-release-signed.apk    
