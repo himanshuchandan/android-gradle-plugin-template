@@ -5,9 +5,7 @@ FROM registry.redhat.io/ubi9/openjdk-21:1.23-6.1755674728
 
 # Install required packages
 USER root
-RUN microdnf install -y \
-    curl git bash ca-certificates \
-    && microdnf clean all
+RUN microdnf clean all
 
 # Environment variables
 ENV ANDROID_HOME=/opt/android-sdk
@@ -17,7 +15,7 @@ ENV PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$AN
 # Install Android command line tools
 RUN mkdir -p $ANDROID_HOME/cmdline-tools \
     && cd $ANDROID_HOME/cmdline-tools \
-    && curl -L -o tools.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip \
+    && curl -k -L -o tools.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip \
     && jar xf tools.zip \
     && mv cmdline-tools latest \
     && rm tools.zip
@@ -32,7 +30,7 @@ RUN sdkmanager --install \
     "build-tools;35.0.0"
 
 # Install Gradle
-RUN curl -L -o gradle.zip https://services.gradle.org/distributions/gradle-8.14.3-bin.zip \
+RUN curl -k -L -o gradle.zip https://services.gradle.org/distributions/gradle-8.14.3-bin.zip \
     && jar xf gradle.zip \
     && mv gradle-8.14.3 $GRADLE_HOME \
     && rm gradle.zip
