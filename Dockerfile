@@ -34,6 +34,7 @@ RUN sdkmanager --install \
 RUN curl -k -L -o gradle.zip https://services.gradle.org/distributions/gradle-8.14.3-bin.zip \
     && jar xf gradle.zip \
     && mv gradle-8.14.3 $GRADLE_HOME \
+    && chmod +x $GRADLE_HOME/bin/* \
     && rm gradle.zip
 
 # Verify signing tools are available
