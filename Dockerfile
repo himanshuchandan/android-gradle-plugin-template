@@ -1,9 +1,9 @@
 # ------------------------------
-# Android Build Environment (RHEL UBI Base)
+# Android Build Environment (RHEL UBI Base) with APK Signing Tools
 # ------------------------------
 FROM registry.redhat.io/ubi9/openjdk-21:1.23-6.1755674728
 
-# Install required packages (yum/dnf instead of apt)
+# Install required packages
 USER root
 RUN microdnf install -y \
     wget unzip git bash ca-certificates \
@@ -12,7 +12,7 @@ RUN microdnf install -y \
 # Environment variables
 ENV ANDROID_HOME=/opt/android-sdk
 ENV GRADLE_HOME=/opt/gradle
-ENV PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$GRADLE_HOME/bin:$PATH
+ENV PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/35.0.0:$GRADLE_HOME/bin:$PATH
 
 # Install Android command line tools
 RUN mkdir -p $ANDROID_HOME/cmdline-tools \
@@ -25,7 +25,7 @@ RUN mkdir -p $ANDROID_HOME/cmdline-tools \
 # Accept licenses
 RUN yes | sdkmanager --licenses
 
-# Install Android SDK components
+# Install Android SDK components (includes apksigner + zipalign in build-tools)
 RUN sdkmanager --install \
     "platform-tools" \
     "platforms;android-35" \
@@ -36,6 +36,9 @@ RUN wget https://services.gradle.org/distributions/gradle-8.14.3-bin.zip -O grad
     && unzip gradle.zip -d /opt \
     && mv /opt/gradle-8.14.3 $GRADLE_HOME \
     && rm gradle.zip
+
+# Verify signing tools are available
+RUN which apksigner && which zipalign && which jarsigner
 
 WORKDIR /app
 #COPY . .
