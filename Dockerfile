@@ -1,7 +1,7 @@
 # ------------------------------
 # Android Build Environment (RHEL UBI Base)
 # ------------------------------
-FROM registry.access.redhat.com/ubi9/openjdk-21:1.20-1
+FROM registry.access.redhat.com/ubi9/openjdk-21:1.21-1.1741864872
 
 # Install required packages (yum/dnf instead of apt)
 USER root
